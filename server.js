@@ -31,6 +31,7 @@ mongoose
   });
 
 if (process.env.NODE_ENV === "production") {
+  app.use(express.static("frontend/build"));
 }
 app.listen(PORT, () => {
   console.log(`server is listening at port ${PORT}`);
