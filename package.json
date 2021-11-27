@@ -1,0 +1,30 @@
+{
+  "name": "online_assignment_submitter",
+  "version": "1.0.0",
+  "description": "Application to submit and evaluate assignments online",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "devstart": "nodemon server.js",
+    "build": "cd frontend && npm run build",
+    "install-client": "cd frontend && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build"
+  },
+  "author": "Shazia Samreen",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1026.0",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.12",
+    "multer": "^1.4.3",
+    "multer-s3": "^2.10.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

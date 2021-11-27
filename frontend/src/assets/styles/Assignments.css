@@ -1,0 +1,59 @@
+.assignments {
+  display: flex;
+  justify-content: space-between;
+}
+.text {
+  display: inline;
+  width: 100%;
+}
+
+.read-or-hide {
+  color: rgb(192, 192, 192);
+  cursor: pointer;
+}
+
+.card:hover {
+  box-shadow: 2px 2px 2px rgb(192, 192, 192);
+  /* transform: scale(1.03); */
+}
+
+.submissionForm {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgb(0, 0, 0, 0.4);
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.submissionForm-inner {
+  position: relative;
+  padding: 70px;
+  width: 50rem;
+
+  background-color: white;
+}
+.submissionForm-inner .close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.spacing {
+  margin-top: 1rem;
+}
+
+.inline-spacing {
+  margin-right: 1rem;
+}
+
+.floatLeft {
+  margin-left: 8rem;
+}
+
+.consent-box {
+  display: flex, fl;
+}
