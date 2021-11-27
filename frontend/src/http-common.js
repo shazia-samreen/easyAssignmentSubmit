@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const http = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://easy-assignment-submit.herokuapp.com/",
   headers: {
     "Content-type": "application/json",
   },
