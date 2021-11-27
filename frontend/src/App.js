@@ -28,17 +28,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route
-          path="/"
-          // element={
-          //   home ? (
-          //     <Home home={home} changeState={changeState} />
-          //   ) : (
-          //     <LoginOrSignUpPage user={userType} />
-          //   )
-          // }
-          element={<Home />}
-        />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginOrSignUpPage user={userType} />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route
