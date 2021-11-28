@@ -34,12 +34,6 @@ An Application where teachers can distribute the assignment, students can submit
 **Database:** MongoDB
 
 
-## Entry points
-
-### backend: server.js
-### frontend: index.html followed by App.js
-
-
 ## Live Demo
 
 http://easy-assignment-submit.herokuapp.com/
@@ -126,6 +120,11 @@ Go to the root directory and start the backend server
   npm run devstart or simply run the command node app.js
 ```
 ##### Now you can access the app at ```localhost:5000 ```
+
+## Entry points
+
+**backend:** server.js
+**frontend:** index.html followed by App.js
 
 ### Documents to get more information about Schema and project workflow
 
