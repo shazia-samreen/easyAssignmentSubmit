@@ -34,6 +34,14 @@ An Application where teachers can distribute the assignment, students can submit
 **Database:** MongoDB
 
 
+
+
+
+## Live Demo
+
+http://easy-assignment-submit.herokuapp.com/
+
+
 ## To run Locally
 
 Clone the project
@@ -91,7 +99,7 @@ Go to frontend directory and start the server
 ```
 ##### Now you can access the app at ```localhost:3000 ```
 
-### Steps to run project in development mode
+### Steps to run project in production mode
 
 Install backend dependencies
 
@@ -117,12 +125,3 @@ Go to the root directory and start the backend server
 ##### Now you can access the app at ```localhost:5000 ```
 
 
-
-
-
-
-
-
-## Live Demo
-
-http://easy-assignment-submit.herokuapp.com/
