@@ -34,7 +34,9 @@ An Application where teachers can distribute the assignment, students can submit
 **Database:** MongoDB
 
 
-
+## Entry points
+###backend: server.js
+###frontend: index.html followed by App.js
 
 
 ## Live Demo
