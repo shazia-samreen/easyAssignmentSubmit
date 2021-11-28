@@ -24,3 +24,105 @@ An Application where teachers can distribute the assignment, students can submit
 #### Extra features
 - Encryption of password is used using bcrypt algorithm.
 - User can reset password any time they forget password
+
+## Tech Stack
+
+**Client:** React
+
+**Server:** Node, Express
+
+**Database:** MongoDB
+
+
+## To run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/shazia-samreen/easyAssignmentSubmit.git
+```
+
+Go to the project directory
+
+```bash
+  cd directory_where_project_is_cloned
+```
+Change branch if the branch is anything other than master
+
+```bash
+  git checkout master
+```
+
+### Steps to run project in development mode
+
+Install backend dependencies
+
+```bash
+  npm install
+```
+
+Install front dependencies
+
+```bash
+  cd frontend
+  npm install
+```
+Change the root url in http-common.js file present in frontend directory to localhost:3000
+
+```bash
+  cd directory_where_project_is_cloned
+  create a database and generate a MONGODB_URI copy install
+  create a user under iam role section of aws and store the AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY
+  create an .env file and add the fields MONGODB_URI,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY
+```
+Go to the root directory and start the backend server
+
+```bash
+  cd directory_where_project_is_cloned
+  npm install nodemon --save-dev
+  npm run devstart or simply run the command node app.js
+```
+
+Go to frontend directory and start the server
+
+```bash
+  cd frontend
+  npm start
+```
+##### Now you can access the app at ```localhost:3000 ```
+
+### Steps to run project in development mode
+
+Install backend dependencies
+
+```bash
+  npm install
+```
+Change the root url in http-common.js file present in frontend directory to localhost:3000
+
+```bash
+  cd directory_where_project_is_cloned
+  create a database and generate a MONGODB_URI copy install
+  create a user under iam role section of aws and store the AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY
+  create an .env file and add the fields MONGODB_URI,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY
+  In .env file,add a field NODE_ENV and set it to production
+```
+Go to the root directory and start the backend server
+
+```bash
+  cd directory_where_project_is_cloned
+  npm install nodemon --save-dev
+  npm run devstart or simply run the command node app.js
+```
+##### Now you can access the app at ```localhost:5000 ```
+
+
+
+
+
+
+
+
+## Live Demo
+
+http://easy-assignment-submit.herokuapp.com/
