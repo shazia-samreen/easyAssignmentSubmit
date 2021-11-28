@@ -110,7 +110,7 @@ Change the root url in http-common.js file present in frontend directory to loca
 
 ```bash
   cd directory_where_project_is_cloned
-  create a database and generate a MONGODB_URI copy install
+  create a database in Mongo Atlas or locally and generate a MONGODB_URI 
   create a user under iam role section of aws and store the AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY
   create an .env file and add the fields MONGODB_URI,AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY
   In .env file,add a field NODE_ENV and set it to production
