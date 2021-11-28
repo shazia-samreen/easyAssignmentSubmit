@@ -6,7 +6,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 function TeacherAssignmentCreationForm(props) {
   const assignmentForm = useRef(null);
   const location = useLocation();
-  console.log(location.state);
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [variant, setVariant] = useState("success");
@@ -28,17 +27,14 @@ function TeacherAssignmentCreationForm(props) {
     formData.append("userId", location.state.userId.userId);
     formData.append("status", "assigned");
     formData.append("schoolName", location.state.schoolName.schoolName);
-    //console.log(formData);
     http
       .post("/assignment/submit", formData)
       .then((response) => {
-        console.log(response);
         if (response.data.status === false) {
           setResponse(true);
           setMessage(response.data.errorMessage);
         } //error response
         else {
-          // console.log("post request successfull");
           navigate(-1);
         } //success response
       })
@@ -53,7 +49,7 @@ function TeacherAssignmentCreationForm(props) {
         <button
           class="close-btn"
           onClick={() => {
-            navigate(-1, { state: { count: 1 } });
+            navigate(-1);
           }}
         >
           <i class="bi bi-arrow-left"></i>
@@ -75,6 +71,7 @@ function TeacherAssignmentCreationForm(props) {
               id="form4Example1"
               class="form-control"
               name="topic"
+              required
             />
           </div>
           <label class="form-label" for="form4Example2">
@@ -86,6 +83,7 @@ function TeacherAssignmentCreationForm(props) {
               id="form4Example2"
               rows="2"
               name="description"
+              maxLength="100"
             ></textarea>
           </div>
           <div class="form-outline mb-4">
@@ -99,6 +97,7 @@ function TeacherAssignmentCreationForm(props) {
               name="class"
               max="10"
               min="1"
+              required
             />
           </div>
           <div class="form-outline mb-4">
@@ -112,6 +111,7 @@ function TeacherAssignmentCreationForm(props) {
               name="totalMarks"
               max="100"
               min="10"
+              required
             />
           </div>
           <div class="form-outline mb-4">
@@ -124,6 +124,7 @@ function TeacherAssignmentCreationForm(props) {
               class="form-control"
               name="deadline"
               min={today}
+              required
             />
           </div>
           <div class="form-outline mb-4">
@@ -135,6 +136,7 @@ function TeacherAssignmentCreationForm(props) {
               id="file"
               class="form-control"
               name="assignment"
+              required
             />
           </div>
           {/* <!-- Submit button --> */}

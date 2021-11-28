@@ -4,14 +4,12 @@ import { useRef, useState } from "react";
 import http from "../http-common.js";
 import "../assets/styles/Assignments.css";
 function StudentAssignmentSubmissionForm(props) {
-  console.log(props);
   const submitForm = useRef(null);
   const [message, setMessage] = useState("");
   const [variant, setVariant] = useState("success");
   const [response, setResponse] = useState(false);
   function submitAssignment(event) {
     event.preventDefault();
-    const data = {};
     const formData = new FormData(submitForm.current);
     formData.append("referenceAssignmentId", props.assignment._id);
     formData.append("userId", props.userId);
@@ -23,21 +21,19 @@ function StudentAssignmentSubmissionForm(props) {
     http
       .post("/assignment/submit", formData)
       .then((response) => {
-        console.log(response);
         if (response.data.status === false) {
           setResponse(true);
           setVariant("danger");
           setMessage(response.data.errorMessage);
         } //error response
         else {
-          console.log("post request successfull");
           setResponse(true);
           setMessage(
             "Assignment Submitted succesfully...Redirecting to dashboard in 2 seconds"
           );
           const timer = setInterval(() => {
             props.changeState(timer);
-          }, 3000);
+          }, 2000);
         } //success response
       })
       .catch((error) => {
@@ -77,6 +73,7 @@ function StudentAssignmentSubmissionForm(props) {
                 class="form-control-file"
                 name="assignment"
                 id="exampleFormControlFile1"
+                required
               />
               <div>
                 <button type="submit" class="btn btn-primary spacing">

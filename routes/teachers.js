@@ -5,8 +5,9 @@ const dotenv = require("dotenv");
 const Teacher = require("../models/teacher");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
+
+//post request to teacher/login
 router.route("/login").post(async (req, res) => {
-  console.log("request to teacher/login");
   const foundTeacher = await Teacher.findOne({ emailid: req.body.emailid });
   try {
     const foundTeacher = await Teacher.findOne({ emailid: req.body.emailid });
@@ -15,16 +16,15 @@ router.route("/login").post(async (req, res) => {
         req.body.password,
         foundTeacher.password,
         function (error, result) {
-          if (error) {
+          if (result) {
+            res.redirect(
+              `/assignment?id=${foundTeacher._id}&schoolName=${foundTeacher.schoolName}&userId=${foundTeacher._id}&name=${foundTeacher.name}`
+            );
+          } else {
             res.json({
               status: false,
               message: "Invalid username or password. Please try again.",
             });
-          } else {
-            console.log("succefully logged in");
-            res.redirect(
-              `/assignment?id=${foundTeacher._id}&schoolName=${foundTeacher.schoolName}&userId=${foundTeacher._id}&name=${foundTeacher.name}`
-            );
           }
         }
       );
@@ -43,6 +43,7 @@ router.route("/login").post(async (req, res) => {
   }
 });
 
+//post request to teacher/register
 router.route("/register").post(async (req, res) => {
   try {
     const foundTeacher = await Teacher.findOne({ emailid: req.body.emailid });
@@ -63,12 +64,10 @@ router.route("/register").post(async (req, res) => {
             password: req.body.password,
           });
           const newTeacher = await teacher.save();
-          console.log(newTeacher);
           const id = newTeacher._id;
           res.redirect(
             `/assignment?id=${id}&schoolName=${newTeacher.schoolName}&userId=${newTeacher._id}&name=${newTeacher.name}`
           );
-          console.log("Registration of teacher successfull");
         })
         .catch((error) => {
           res.json({
@@ -78,9 +77,44 @@ router.route("/register").post(async (req, res) => {
         });
     }
   } catch (err) {
+    console.log(err); //logging to debug
     res.json({
       status: false,
       message: "Something went wrong...Please try again",
+    });
+  }
+});
+
+//post request to teacher/forgotPassword
+router.route("/forgotPassword").post(async (req, res) => {
+  try {
+    await bcrypt
+      .hash(req.body.password, saltRounds)
+      .then(async (response) => {
+        const result = await Teacher.updateOne(
+          {
+            emailid: req.body.emailid,
+          },
+          {
+            password: response,
+          }
+        );
+        res.json({ success: true });
+      })
+      .catch((error) => {
+        console.log(error);
+        res.json({
+          status: false,
+          message:
+            "Error while updating the password...please try after some time",
+        });
+      });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      success: false,
+      errorMessage:
+        "Error while updating the password...please try after some time",
     });
   }
 });

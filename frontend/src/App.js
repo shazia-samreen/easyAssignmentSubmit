@@ -10,6 +10,7 @@ import LoginOrSignUpPage from "./components/LoginOrSignUpPage";
 import TeacherAssignmentCreationForm from "./components/TeacherAssignmentCreationForm";
 import Dashboard from "./components/Dashboard";
 import "aos/dist/aos.css";
+import ForgotPassword from "./components/ForgotPassword";
 
 function App() {
   AOS.init({
@@ -18,23 +19,17 @@ function App() {
     once: true,
     mirror: false,
   });
-  const [home, setHome] = useState(true);
-  const [userType, setUserType] = useState("student");
-  function changeState(user) {
-    console.log("changeState function called");
-    setUserType(user);
-    setHome(!home);
-  }
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<LoginOrSignUpPage user={userType} />} />
+        <Route path="/login" element={<LoginOrSignUpPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route
           path="/submissionForm"
           element={<TeacherAssignmentCreationForm />}
         />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
       </Routes>
     </div>
   );

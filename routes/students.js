@@ -5,9 +5,9 @@ const dotenv = require("dotenv");
 const Student = require("../models/student");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
+
+//post request to student/login
 router.route("/login").post(async (req, res) => {
-  console.log("request to student/login");
-  console.log(req.body);
   const foundStudent = await Student.findOne({ emailid: req.body.emailid });
   try {
     const foundStudent = await Student.findOne({ emailid: req.body.emailid });
@@ -16,16 +16,15 @@ router.route("/login").post(async (req, res) => {
         req.body.password,
         foundStudent.password,
         function (error, result) {
-          if (error) {
+          if (result === true) {
+            res.redirect(
+              `/assignment?class=${foundStudent.class}&schoolName=${foundStudent.schoolName}&userId=${foundStudent._id}&name=${foundStudent.name}`
+            );
+          } else {
             res.json({
               status: false,
               message: "Invalid username or password. Please try again.",
             });
-          } else {
-            console.log("succefully logged in");
-            res.redirect(
-              `/assignment?class=${foundStudent.class}&schoolName=${foundStudent.schoolName}&userId=${foundStudent._id}&name=${foundStudent.name}`
-            );
           }
         }
       );
@@ -45,6 +44,7 @@ router.route("/login").post(async (req, res) => {
   }
 });
 
+//post request to student/register
 router.route("/register").post(async (req, res) => {
   console.log("request to student/register");
   console.log(req.body);
@@ -61,9 +61,6 @@ router.route("/register").post(async (req, res) => {
       await bcrypt
         .hash(req.body.password, saltRounds)
         .then(async (response) => {
-          console.log(response);
-          console.log("request body is");
-          console.log(req.body);
           const student = new Student({
             name: req.body.name,
             emailid: req.body.emailid,
@@ -72,12 +69,9 @@ router.route("/register").post(async (req, res) => {
             password: response,
           });
           const newStudent = await student.save();
-          console.log("new student ");
-          console.log(newStudent);
           res.redirect(
             `/assignment?class=${newStudent.class}&schoolName=${newStudent.schoolName}&userId=${newStudent._id}&name=${newStudent.name}`
           );
-          console.log("Registration successfull");
         })
         .catch((error) => {
           res.json({
@@ -91,6 +85,40 @@ router.route("/register").post(async (req, res) => {
     res.json({
       status: false,
       message: "Something went wrong...Please try again",
+    });
+  }
+});
+
+//post request to student/forgotPassword
+router.route("/forgotPassword").post(async (req, res) => {
+  try {
+    await bcrypt
+      .hash(req.body.password, saltRounds)
+      .then(async (response) => {
+        const result = await Student.updateOne(
+          {
+            emailid: req.body.emailid,
+          },
+          {
+            password: response,
+          }
+        );
+        res.json({ success: true });
+      })
+      .catch((error) => {
+        console.log(error);
+        res.json({
+          status: false,
+          message:
+            "Error while updating the password...please try after some time",
+        });
+      });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      success: false,
+      errorMessage:
+        "Error while updating the password...please try after some time",
     });
   }
 });

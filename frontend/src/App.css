@@ -329,6 +329,11 @@ section {
     display: flex;
   }
 }
+@media (max-width: 530px) {
+  .dropdownHide {
+    display: none;
+  }
+}
 .navbar-mobile {
   position: fixed;
   overflow: hidden;

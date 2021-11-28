@@ -10,7 +10,6 @@ function LoginOrSignUpPage(props) {
   });
   const location = useLocation();
   const [user, setUser] = useState(location.state.user);
-  console.log(user);
   const signinForm = useRef(null);
   const signUpForm = useRef(null);
   const [error, setError] = useState(0);
@@ -24,18 +23,14 @@ function LoginOrSignUpPage(props) {
       json;
     if (actionType === "register") {
       formData = new FormData(signUpForm.current);
-      formData.forEach((value, key) => (data[key] = value));
-      json = JSON.stringify(data);
     } else {
       formData = new FormData(signinForm.current);
-      formData.forEach((value, key) => (data[key] = value));
-      json = JSON.stringify(data);
     }
-    console.log(json);
+    formData.forEach((value, key) => (data[key] = value));
+    json = JSON.stringify(data);
     await http
       .post("/" + user + "/" + actionType, json)
       .then((response) => {
-        console.log(response);
         if (response.data.status === false) {
           if (actionType === "register") {
             setError(1);
@@ -55,11 +50,13 @@ function LoginOrSignUpPage(props) {
         } //success response
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response) {
+          //statements that help to debug for the developer
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
       });
-    console.log(
-      "Made a post request for " + user + " and action is" + actionType
-    );
   }
   return (
     <section id="loginSection" class="loginSection">
@@ -81,12 +78,19 @@ function LoginOrSignUpPage(props) {
                 <p>{errorMessage}</p>
               </Alert>
             )}
-            <input type="text" placeholder="Name" class="input" name="name" />
+            <input
+              type="text"
+              placeholder="Name"
+              class="input"
+              name="name"
+              required
+            />
             <input
               type="email"
               placeholder="Email"
               class="input"
               name="emailid"
+              required
             />
             {user === "student" && (
               <input
@@ -96,6 +100,7 @@ function LoginOrSignUpPage(props) {
                 name="class"
                 max="10"
                 min="1"
+                required
               />
             )}
             <input
@@ -103,12 +108,14 @@ function LoginOrSignUpPage(props) {
               placeholder="School Name"
               class="input"
               name="schoolName"
+              required
             />
             <input
               type="password"
               placeholder="Password"
               class="input"
               name="password"
+              required
             />
             <button style={{ cursor: "pointer" }} type="submit" class="button">
               Sign Up
@@ -135,14 +142,27 @@ function LoginOrSignUpPage(props) {
               placeholder="Email"
               class="input"
               name="emailid"
+              required
             />
             <input
               type="password"
               placeholder="Password"
               class="input"
               name="password"
+              required
             />
-            <a href="/" class="link">
+            <a
+              href="/"
+              class="link"
+              onClick={(event) => {
+                event.preventDefault();
+                navigate("/forgotPassword", {
+                  state: {
+                    user: user,
+                  },
+                });
+              }}
+            >
               Forgot your password?
             </a>
             <button style={{ cursor: "pointer" }} class="button" type="submit">
@@ -170,7 +190,7 @@ function LoginOrSignUpPage(props) {
               </button>
             </div>
             <div class="overlay-panel overlay-right">
-              <h1 class="h1">Hello, Friend!</h1>
+              <h1 class="h1">Hello, {user}!</h1>
               <p class="p">
                 Enter your personal details and start journey with us
               </p>

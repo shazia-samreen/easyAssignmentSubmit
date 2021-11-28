@@ -7,8 +7,6 @@ import "../App.css";
 import Assignments from "./Assignments";
 function Dashboard(props) {
   const location = useLocation();
-  console.log(location.state);
-  console.log(location.state.data);
   const navigate = useNavigate();
   const [assignmentsData, setassignmentsData] = useState(
     location.state.data.data
@@ -26,15 +24,11 @@ function Dashboard(props) {
     setIsOpen(!isOpen);
   };
   const menuClass = `dropdown-menu${isOpen ? " show" : ""}`;
-  //setScreenChange(screenChange + 1);
   async function getAssignments(url) {
     await http
       .get(url)
       .then((response) => {
-        console.log(response);
-        if (response.data.status === false) {
-        } //error response
-        else {
+        if (response.data.status === true) {
           setassignmentsData(response.data.data);
         } //success response
       })
@@ -43,7 +37,6 @@ function Dashboard(props) {
       });
   }
   useEffect(() => {
-    console.log("period changed to " + period);
     let url =
       "/assignment?id=" +
       userId +
@@ -63,7 +56,6 @@ function Dashboard(props) {
         period;
       getAssignments(url);
     }
-    console.log("activating" + page);
     activate(page);
   }, [period]);
   async function activate(page) {
@@ -85,11 +77,9 @@ function Dashboard(props) {
           schoolName +
           "&period=" +
           period;
-      console.log(url);
       await http
         .get(url)
         .then((response) => {
-          console.log(response);
           if (response.data.status === false) {
           } //error response
           else {
@@ -107,7 +97,7 @@ function Dashboard(props) {
       <Header isDashBoard={true} user={user} name={userName} />
       <SideNav activate={activate} />
       <div className="trial">
-        <div class="d-flex flex-row-reverse bd-highlight justify-content align-items-center">
+        <div class=" d-flex flex-row-reverse bd-highlight justify-content align-items-center dropdownHide">
           <div className="dropdown mx-5" onClick={toggleOpen}>
             <button
               className="btn btn-secondary dropdown-toggle"
@@ -207,7 +197,6 @@ function Dashboard(props) {
           />
         )}
       </div>
-      {/* <TeacherAssignmentCreationForm /> */}
     </>
   );
 }

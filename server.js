@@ -29,9 +29,8 @@ mongoose
     console.log(error);
     console.log("Error while connecting to db");
   });
-console.log(process.env.NODE_ENV);
+
 if (process.env.NODE_ENV === "production") {
-  console.log("production env working fine");
   app.use(express.static("frontend/build"));
 }
 app.listen(PORT, () => {

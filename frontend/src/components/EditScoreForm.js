@@ -68,6 +68,7 @@ function EditScoreForm(props) {
                 max={props.assignment.grade.total}
                 name="marks"
                 id="marks"
+                required
               />
               / {props.assignment.grade.total}
               <div>

@@ -36,9 +36,6 @@ router.route("/").get(async (req, res) => {
   }
   const pastDate = new Date();
   pastDate.setDate(pastDate.getDate() - period);
-  console.log(pastDate);
-  console.log("query body");
-  console.log(req.query);
   try {
     const result_by_id = await Assignment.find({
       userId: req.query.id,
@@ -81,10 +78,9 @@ router.route("/").get(async (req, res) => {
     });
   }
 });
+
+//Edit scores
 router.route("/").patch(async (req, res) => {
-  console.log("patch request successfull");
-  console.log(req.body);
-  console.log(req.params);
   try {
     console.log(req.query);
     const result = await Assignment.updateOne(
@@ -105,7 +101,7 @@ router.route("/").patch(async (req, res) => {
   }
 });
 
-//route to submit assignment
+//route to retrieve submitted assignment
 router.route("/submitted").get(async (req, res) => {
   let period = req.query.period;
   if (period === undefined) {
@@ -150,10 +146,10 @@ router.route("/submitted").get(async (req, res) => {
     });
   }
 });
+
+//route to submit assignments
 router.route("/submit").post(upload.single("assignment"), async (req, res) => {
   if (req.body.class === undefined) req.body.class = 0;
-  console.log(typeof req.body.deadline);
-  console.log(Date.parse(req.body.deadline));
   try {
     const assignment = new Assignment({
       class: new Number(req.body.class),
@@ -170,7 +166,6 @@ router.route("/submit").post(upload.single("assignment"), async (req, res) => {
       deadline: new Date(Date.parse(req.body.deadline)),
       referenceAssignmentId: req.body.referenceAssignmentId,
     });
-    console.log(assignment);
 
     const newAssignment = await assignment.save();
     res.json({ status: true });
@@ -181,7 +176,7 @@ router.route("/submit").post(upload.single("assignment"), async (req, res) => {
       (err, data) => {
         if (!err) {
           console.log(data);
-          console.log("file deleted");
+          console.log("stored file deleted from s3");
         } else {
           console.log("Error occured");
           console.log(err);
