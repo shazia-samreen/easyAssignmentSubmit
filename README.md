@@ -124,4 +124,9 @@ Go to the root directory and start the backend server
 ```
 ##### Now you can access the app at ```localhost:5000 ```
 
+### Documents to get more information about Schema and project workflow
+
+https://drive.google.com/file/d/14Yz9fp5yTtvIic_uNFqOTdhCTbk4qU80/view?usp=sharing
+https://drive.google.com/file/d/1C4gK0aaDhTf2fpQtt_YT70aGvxoDDDKJ/view?usp=sharing
+
 
