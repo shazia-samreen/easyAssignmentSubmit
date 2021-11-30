@@ -41,6 +41,9 @@ http://easy-assignment-submit.herokuapp.com/
 
 ## To run Locally
 
+
+### You will need nodejs installed in your pc to run the application
+
 Clone the project
 
 ```bash
